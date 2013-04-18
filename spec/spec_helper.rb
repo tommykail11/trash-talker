@@ -1,38 +1,65 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
-require 'rspec/autorun'
+require 'spec_helper'
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+describe "Static pages" do
 
-RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
+  describe "Home page" do
 
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+    it "should have the h1 'Trash Talker'" do
+      visit root_path
+      page.should have_selector('h1', text: 'Trash Talker')
+    end
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+    it "should have the base title" do
+      visit root_path
+      page.should have_selector('title',
+                        text: "Ruby on Rails Tutorial Sample App")
+    end
 
-  # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
-  # rspec-rails.
-  config.infer_base_class_for_anonymous_controllers = false
+    it "should not have a custom page title" do
+      visit root_path
+      page.should_not have_selector('title', text: '| Home')
+    end
+  end
 
-  # Run specs in random order to surface order dependencies. If you find an
-  # order dependency and want to debug it, you can fix the order by providing
-  # the seed, which is printed after each run.
-  #     --seed 1234
-  config.order = "random"
+  describe "Help page" do
+
+    it "should have the h1 'Help'" do
+      visit help_path
+      page.should have_selector('h1', text: 'Help')
+    end
+
+    it "should have the title 'Help'" do
+      visit help_path
+      page.should have_selector('title',
+                        text: "Ruby on Rails Tutorial Sample App | Help")
+    end
+  end
+
+  describe "About page" do
+
+    it "should have the h1 'About'" do
+      visit about_path
+      page.should have_selector('h1', text: 'About Us')
+    end
+
+    it "should have the title 'About Us'" do
+      visit about_path
+      page.should have_selector('title',
+                    text: "Ruby on Rails Tutorial Sample App | About Us")
+    end
+  end
+
+  describe "Contact page" do
+
+    it "should have the h1 'Contact'" do
+      visit contact_path
+      page.should have_selector('h1', text: 'Contact')
+    end
+
+    it "should have the title 'Contact'" do
+      visit contact_path
+      page.should have_selector('title',
+                    text: "Ruby on Rails Tutorial Sample App | Contact")
+    end
+  end
 end
