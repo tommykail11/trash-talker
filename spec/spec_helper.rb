@@ -1,65 +1,46 @@
-require 'spec_helper'
+require 'rubygems'
+require 'spork'
 
-describe "Static pages" do
+Spork.prefork do
+  # Loading more in this block will cause your tests to run faster. However, 
+  # if you change any configuration or code from libraries loaded here, you'll
+  # need to restart spork for it take effect.
+  # This file is copied to spec/ when you run 'rails generate rspec:install'
+  ENV["RAILS_ENV"] ||= 'test'
+  require File.expand_path("../../config/environment", __FILE__)
+  require 'rspec/rails'
+  require 'rspec/autorun'
 
-  describe "Home page" do
+  # Requires supporting ruby files with custom matchers and macros, etc,
+  # in spec/support/ and its subdirectories.
+  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-    it "should have the h1 'Trash Talker'" do
-      visit root_path
-      page.should have_selector('h1', text: 'Trash Talker')
-    end
+  RSpec.configure do |config|
+    # == Mock Framework
+    #
+    # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+    #
+    # config.mock_with :mocha
+    # config.mock_with :flexmock
+    # config.mock_with :rr
+    config.mock_with :rspec
 
-    it "should have the base title" do
-      visit root_path
-      page.should have_selector('title',
-                        text: "Ruby on Rails Tutorial Sample App")
-    end
+    # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+    config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-    it "should not have a custom page title" do
-      visit root_path
-      page.should_not have_selector('title', text: '| Home')
-    end
+    # If you're not using ActiveRecord, or you'd prefer not to run each of your
+    # examples within a transaction, remove the following line or assign false
+    # instead of true.
+    config.use_transactional_fixtures = true
+
+    # If true, the base class of anonymous controllers will be inferred
+    # automatically. This will be the default behavior in future versions of
+    # rspec-rails.
+    config.infer_base_class_for_anonymous_controllers = false
   end
+end
 
-  describe "Help page" do
+Spork.each_run do
+  # This code will be run each time you run your specs.
 
-    it "should have the h1 'Help'" do
-      visit help_path
-      page.should have_selector('h1', text: 'Help')
-    end
-
-    it "should have the title 'Help'" do
-      visit help_path
-      page.should have_selector('title',
-                        text: "Ruby on Rails Tutorial Sample App | Help")
-    end
-  end
-
-  describe "About page" do
-
-    it "should have the h1 'About'" do
-      visit about_path
-      page.should have_selector('h1', text: 'About Us')
-    end
-
-    it "should have the title 'About Us'" do
-      visit about_path
-      page.should have_selector('title',
-                    text: "Ruby on Rails Tutorial Sample App | About Us")
-    end
-  end
-
-  describe "Contact page" do
-
-    it "should have the h1 'Contact'" do
-      visit contact_path
-      page.should have_selector('h1', text: 'Contact')
-    end
-
-    it "should have the title 'Contact'" do
-      visit contact_path
-      page.should have_selector('title',
-                    text: "Ruby on Rails Tutorial Sample App | Contact")
-    end
-  end
 end
