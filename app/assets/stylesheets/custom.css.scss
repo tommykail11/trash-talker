@@ -207,6 +207,7 @@ input {
 
  body {
   background-image: url("Michigan-Stadium.jpg");
+  background-attachment: fixed;
 }
 
 .debug_dump {
@@ -214,7 +215,7 @@ input {
 }
 
 body > .container {
-  background-color: #eee;
+  background-color: rgba(230, 230, 230, .6);
   padding: 20px;
 }
 
