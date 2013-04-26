@@ -206,8 +206,10 @@ input {
 }
 
  body {
-  background-image: url("Michigan-Stadium.jpg");
+  background-image: url("winter-classic.jpg");
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .debug_dump {
@@ -215,7 +217,7 @@ input {
 }
 
 body > .container {
-  background-color: rgba(230, 230, 230, .6);
+  background-color: rgba(230, 230, 230, .7);
   padding: 20px;
 }
 

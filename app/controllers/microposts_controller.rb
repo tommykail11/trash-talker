@@ -2,11 +2,19 @@ class MicropostsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy]
   before_filter :correct_user,   only: :destroy
 
+  def index
+    @team = Team.find(params[:team_id])
+    @microposts = @team.microposts
+    @micropost = Micropost.new
+  end
+
   def create
-    @micropost = current_user.microposts.build(params[:micropost])
+    @team = Team.find(params[:team_id])
+    @micropost = current_user.microposts.build(content: params[:micropost][:content])
+    @micropost.team = @team
     if @micropost.save
-      flash[:success] = "Micropost created!"
-      redirect_to root_url
+      flash[:success] = "Bleep created!"
+      redirect_to team_path(@team)
     else
       render 'static_pages/home'
     end

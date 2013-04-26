@@ -1,0 +1,27 @@
+<% provide(:team, @team.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+    <section>
+      <%= render 'shared/micropost_form' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3><%= @team.name %></h3>
+    <% if @team.microposts.any? %>
+      <ol class="microposts">
+        <% @microposts.each do |micropost| %>
+          <li><%= micropost.content %></li>
+          <%= "Bleep by: " + micropost.user.name %>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<% provide(:team, @team.name) %>
+<div class="row">
+  <section>
+    <h1><%= @team.name %></h1>
+  </section>
+  <% @microposts.each do |micropost| %>
+    <p><%= micropost.content + " written by " + micropost.user_id.to_s %></p>
+  <% end %>
+  <%= render 'shared/micropost_form' %>
+</div>
